@@ -5,18 +5,14 @@ import java.awt.Point;
 import java.util.Set;
 
 public class MyPongModel implements PongModel {
-
-
-
-
 	private int leftBarHeight;
 	private int rightBarHeight;
 	private int leftPos;
 	private int rightPos;
 	private String leftScore;
 	private String rightScore;
-	private Dimension fieldSize;
-	private Point ball;
+	private final Dimension fieldSize;
+	private Ball ball;
 
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
@@ -24,14 +20,11 @@ public class MyPongModel implements PongModel {
 		this.leftPos = 400;
 		this.rightPos = 400;
 		this.leftScore = "0";
-		this.leftScore = "0";
+		this.rightScore = "0";
 		this.fieldSize = new Dimension(1200,800);
-		this.ball = new Point(200,400);
-
-
-
+		this.ball = new Ball(600,400, new Point(-5,-5));
 	}
-
+	
 
 	/**
 	 * Takes the inputs and applies them to the model, computing one
@@ -40,21 +33,22 @@ public class MyPongModel implements PongModel {
 	 * the items move at the same speed, regardless of the framerate.
 	 */
 	public void compute(Set<Input> input, long delta_t) {
+		this.ball.move();
 		for(Input i : input){
 			switch (i.key) {
 			case RIGHT:
 				switch(i.dir){
 				case UP:
-					rightPos++;
-				case DOWN:
 					rightPos--;
+				case DOWN:
+					rightPos++;
 				}	
 			case LEFT:
 				switch(i.dir){
 				case UP:
-					leftPos++;
-				case DOWN:
 					leftPos--;
+				case DOWN:
+					leftPos++;
 				}
 
 			}
@@ -85,7 +79,7 @@ public class MyPongModel implements PongModel {
 	 * displayed to the players
 	 */
 	public String getMessage() {
-		return "HAaaai!";
+		return "Det här är ett kul spel!";
 	}
 
 
@@ -106,7 +100,7 @@ public class MyPongModel implements PongModel {
 
 	}
 	public Point getBallPos() {
-		return ball;
+		return (Point) ball;
 
 	}
 
