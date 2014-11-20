@@ -19,12 +19,14 @@ public class MyPongModel implements PongModel {
 	private Point ball;
 	
 	public MyPongModel(String leftPlayer, String rightPlayer) {
-		this.leftPos = 0;
-		this.rightPos = 0;
+		this.leftBarHeight = 150;
+		this.rightBarHeight = 150;
+		this.leftPos = 400;
+		this.rightPos = 400;
 		this.leftScore = "0";
 		this.leftScore = "0";
 		this.fieldSize = new Dimension(1200,800);
-		this.ball = new Point(300,300);
+		this.ball = new Point(600,400);
 		
 				
 	}
