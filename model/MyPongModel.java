@@ -5,6 +5,13 @@ import java.awt.Point;
 import java.util.Set;
 
 public class MyPongModel implements PongModel {
+	private int leftPos;
+	private int rightPos;
+	private String leftScore;
+	private String rightScore;
+	private Dimension fieldSize;
+	
+	private Point ball;
 	
 	
 	/**
@@ -22,13 +29,21 @@ public class MyPongModel implements PongModel {
      * and return positions of the various items on the board
      */
     public int getBarPos(BarKey k) {
-    	BarKey
+    	switch (k) {
+    	case LEFT: 
+    		return leftPos;
+    	case RIGHT:
+    		return rightPos;
+    	default:
+    		return 0;
+    	}
     	
     }
     public int getBarHeight(BarKey k) {
     	
     }
     public Point getBallPos() {
+    	return ball;
     	
     }
 
@@ -44,6 +59,15 @@ public class MyPongModel implements PongModel {
      * getter for the scores.
      */
     public String getScore(BarKey k) {
+    	switch (k) {
+    	case LEFT: 
+    		return leftScore;
+    	case RIGHT:
+    		return rightScore;
+    	default:
+    		return "";
+    		
+    	}
     	
     }
     
