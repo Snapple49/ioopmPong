@@ -17,7 +17,7 @@ public class MyPongModel implements PongModel {
 	private String rightScore;
 	private Dimension fieldSize;
 	private Point ball;
-	
+
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
 		this.rightBarHeight = 150;
@@ -27,10 +27,11 @@ public class MyPongModel implements PongModel {
 		this.leftScore = "0";
 		this.fieldSize = new Dimension(1200,800);
 		this.ball = new Point(600,400);
-		
-				
+
+
+
 	}
-	
+
 
 	/**
 	 * Takes the inputs and applies them to the model, computing one
@@ -39,15 +40,34 @@ public class MyPongModel implements PongModel {
 	 * the items move at the same speed, regardless of the framerate.
 	 */
 	public void compute(Set<Input> input, long delta_t) {
-		
+		for(Input i : input){
+			switch (i.key) {
+			case RIGHT:
+				switch(i.dir){
+				case UP:
+					rightPos++;
+				case DOWN:
+					rightPos--;
+				}	
+			case LEFT:
+				switch(i.dir){
+				case UP:
+					leftPos++;
+				case DOWN:
+					leftPos--;
+				}
+
+			}
+		}
 
 	}
+
 
 	/**
 	 * getters that take a BarKey LEFT or RIGHT
 	 * and return positions of the various items on the board
 	 */
-	
+
 	public int getBarHeight(BarKey k) {
 		switch (k){
 		case LEFT:
@@ -70,50 +90,50 @@ public class MyPongModel implements PongModel {
 
 
 
-    /**
-     * getters that take a BarKey LEFT or RIGHT
-     * and return positions of the various items on the board
-     */
-    public int getBarPos(BarKey k) {
-    	switch (k) {
-    	case LEFT: 
-    		return this.leftPos;
-    	case RIGHT:
-    		return this.rightPos;
-    	default:
-    		return 0;
-    	}
-    	
-    }
-    public Point getBallPos() {
-    	return ball;
-    	
-    }
+	/**
+	 * getters that take a BarKey LEFT or RIGHT
+	 * and return positions of the various items on the board
+	 */
+	public int getBarPos(BarKey k) {
+		switch (k) {
+		case LEFT: 
+			return this.leftPos;
+		case RIGHT:
+			return this.rightPos;
+		default:
+			return 0;
+		}
 
-   
+	}
+	public Point getBallPos() {
+		return ball;
 
-    /**
-     * getter for the scores.
-     */
-    public String getScore(BarKey k) {
-    	switch (k) {
-    	case LEFT: 
-    		return this.leftScore;
-    	case RIGHT:
-    		return this.rightScore;
-    	default:
-    		return "";
-    		
-    	}
-    	
-    }
-    
-    /**
-     * a valid implementation of the model will keep the field size
-     * will remain constant forever.
-     */
-    public Dimension getFieldSize() {
-    	return this.fieldSize;
-    }
+	}
+
+
+
+	/**
+	 * getter for the scores.
+	 */
+	public String getScore(BarKey k) {
+		switch (k) {
+		case LEFT: 
+			return this.leftScore;
+		case RIGHT:
+			return this.rightScore;
+		default:
+			return "";
+
+		}
+
+	}
+
+	/**
+	 * a valid implementation of the model will keep the field size
+	 * will remain constant forever.
+	 */
+	public Dimension getFieldSize() {
+		return this.fieldSize;
+	}
 
 }
