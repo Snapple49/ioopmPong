@@ -39,6 +39,7 @@ public class MyPongModel implements PongModel {
 	 * the items move at the same speed, regardless of the framerate.
 	 */
 	public void compute(Set<Input> input, long delta_t) {
+		
 
 	}
 
