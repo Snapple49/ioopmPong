@@ -26,7 +26,7 @@ public class MyPongModel implements PongModel {
 		this.leftScore = "0";
 		this.leftScore = "0";
 		this.fieldSize = new Dimension(1200,800);
-		this.ball = new Point(200,400);
+		this.ball = new Point(600,400);
 
 
 
