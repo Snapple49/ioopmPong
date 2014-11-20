@@ -10,7 +10,9 @@ import java.awt.Dimension;
  */
 public interface PongModel {
 
-    /**
+    
+
+	/**
      * Takes the inputs and applies them to the model, computing one
      * simulation step. delta_t is the time that has passed since the
      * last compute step -- use this in your time integration to have

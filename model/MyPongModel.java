@@ -10,8 +10,18 @@ public class MyPongModel implements PongModel {
 	private String leftScore;
 	private String rightScore;
 	private Dimension fieldSize;
-	
 	private Point ball;
+	
+	public MyPongModel(String leftPlayer, String rightPlayer) {
+		this.leftPos = 0;
+		this.rightPos = 0;
+		this.leftScore = "0";
+		this.leftScore = "0";
+		this.fieldSize = new Dimension(1200,800);
+		this.ball = new Point(300,300);
+		
+				
+	}
 	
 	
 	/**
@@ -31,9 +41,9 @@ public class MyPongModel implements PongModel {
     public int getBarPos(BarKey k) {
     	switch (k) {
     	case LEFT: 
-    		return leftPos;
+    		return this.leftPos;
     	case RIGHT:
-    		return rightPos;
+    		return this.rightPos;
     	default:
     		return 0;
     	}
@@ -61,9 +71,9 @@ public class MyPongModel implements PongModel {
     public String getScore(BarKey k) {
     	switch (k) {
     	case LEFT: 
-    		return leftScore;
+    		return this.leftScore;
     	case RIGHT:
-    		return rightScore;
+    		return this.rightScore;
     	default:
     		return "";
     		
@@ -76,7 +86,7 @@ public class MyPongModel implements PongModel {
      * will remain constant forever.
      */
     public Dimension getFieldSize() {
-    	
+    	return this.fieldSize;
     }
 
 }
