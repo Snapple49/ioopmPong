@@ -15,16 +15,18 @@ public class MyPongModel implements PongModel {
 
 	private final Dimension fieldSize;
 	private Ball ball;
+	private final Point center;
 
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
 		this.rightBarHeight = 150;
 		this.leftPos = 400;
 		this.rightPos = 400;
-		this.leftScore = "0";
-		this.rightScore = "0";
+		this.leftScore = 0;
+		this.rightScore = 0;
 		this.fieldSize = new Dimension(1200,800);
 		this.ball = new Ball(600,400, new Point(-8,-8));
+		this.center = new Point(((fieldSize.width)/2), ((fieldSize.height)/2));
 
 	}
 
