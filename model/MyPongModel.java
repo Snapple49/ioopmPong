@@ -64,6 +64,7 @@ public class MyPongModel implements PongModel {
 					rightPos++;
 					break;
 				}	
+				break;
 			case LEFT:
 				switch(i.dir){
 				case UP:
@@ -73,6 +74,7 @@ public class MyPongModel implements PongModel {
 					leftPos++;
 					break;
 				}
+				break;
 
 			}
 		}
