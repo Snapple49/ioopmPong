@@ -9,7 +9,6 @@ public class MyPongModel implements PongModel {
 	private int rightBarHeight;
 	private int leftPos;
 	private int rightPos;
-
 	private int leftScore;
 	private int rightScore;
 	private final Dimension fieldSize;
@@ -26,11 +25,11 @@ public class MyPongModel implements PongModel {
 		this.rightPos = center.y;
 		this.leftScore = 0;
 		this.rightScore = 0;
-		this.ball = new Ball(center.x,center.y, new Point(15,0));
+		this.ball = new Ball(center, new Point(15, 0));
 
 	}
 
-	public MyPongModel(String leftPlayer, String rightPlayer, Point velocity, Point ballPos) {
+	public MyPongModel(String leftPlayer, String rightPlayer, Point ballPos, Point velocity) {
 		this.leftBarHeight = 150;
 		this.rightBarHeight = 150;
 		this.fieldSize = new Dimension(1200,800);
@@ -39,7 +38,7 @@ public class MyPongModel implements PongModel {
 		this.rightPos = center.y;
 		this.leftScore = 0;
 		this.rightScore = 0;
-		this.ball = new Ball(center.x,center.y, new Point(15,0));
+		this.ball = new Ball(center, new Point(15,0));
 
 	}
 
@@ -74,38 +73,48 @@ public class MyPongModel implements PongModel {
 		}
 
 	}
-
-	public void score(boolean left){
-		this.ball.setLocation(this.center);
-		if (left) {
-			rightScore++;
-		}else{
-			leftScore++;
-		}
-		this.leftPos = center.y;
-		this.rightPos = center.y;
-	}
+	
 
 	public void checkCollision(BarKey left, BarKey right){
 		if (this.ball.y >= fieldSize.height || this.ball.y <= 0){
 			this.ball.changeDirection(false);
 		}
-		if (this.ball.x >= this.fieldSize.width){
-			if(this.ball.y > this.getBarPos(right)-(leftBarHeight/2) && this.ball.y < this.getBarPos(right)+(leftBarHeight/2)){				
-				this.ball.changeDirection(true);
-			}else{
-				score(true);
-			}
+		if (this.ball.x >= this.fieldSize.width){ //Right side of board
+			hitSide(right, rightBarHeight, false); //Check if right missed
 		}
-		if (this.ball.x <= 0){
-			if (this.ball.y > this.getBarPos(left)-(rightBarHeight/2) && this.ball.y < this.getBarPos(left)+(rightBarHeight/2)){
-				this.ball.changeDirection(true);
-			}else{				
-				score(false);
-			}
+		if (this.ball.x <= 0){ //Left side of board
+			hitSide(left, leftBarHeight, true); //Check if left missed
 		}
 	}
 
+	private void hitSide(BarKey bar, int barHeight, boolean rightGetsPoint) {
+		if(this.ball.y > this.getBarPos(bar)-(barHeight/2) && this.ball.y < this.getBarPos(bar)+(barHeight/2)){	//Ball within barkey			
+			this.ball.changeDirection(true);
+		}else{
+			score(rightGetsPoint);
+		}
+	}
+
+	private void score(boolean rightGetsPoint){
+		if (rightGetsPoint) {
+			rightScore++;
+		}else{
+			leftScore++;
+		}
+		reset();
+	}
+	
+	private void reset() {
+		int dir = (int) (Math.random()*2 + 1);
+		if (dir == 1){
+			dir = -30;
+		}else{
+			dir = 30;
+		}
+		this.ball.setBall(this.center, new Point(dir, 0));
+		this.rightPos = this.center.y;
+		this.leftPos = this.center.y;
+	}
 
 	/**
 	 * getters that take a BarKey LEFT or RIGHT
@@ -149,8 +158,8 @@ public class MyPongModel implements PongModel {
 		}
 
 	}
-	public Point getBallPos() {
-		return (Point) ball;
+	public Ball getBallPos() {
+		return ball;
 
 	}
 
