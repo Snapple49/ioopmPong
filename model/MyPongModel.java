@@ -9,28 +9,23 @@ public class MyPongModel implements PongModel {
 	private int rightBarHeight;
 	private int leftPos;
 	private int rightPos;
-	
-	private int leftScore;
-	private int rightScore;
-	//private int[] scoreArray = {Integer.parseInt(leftScore), Integer.parseInt(rightScore)};
-
+	private String leftScore;
+	private String rightScore;
 	private final Dimension fieldSize;
 	private Ball ball;
-	private final Point center; 
 
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
 		this.rightBarHeight = 150;
+		this.leftPos = 400;
+		this.rightPos = 400;
+		this.leftScore = "0";
+		this.rightScore = "0";
 		this.fieldSize = new Dimension(1200,800);
-		this.center = new Point(((fieldSize.width)/2), ((fieldSize.height)/2));
-		this.leftPos = center.y;
-		this.rightPos = center.y;
-		this.leftScore = 0;
-		this.rightScore = 0;
-		this.ball = new Ball(center.x,center.y, new Point(15,0));
+		this.ball = new Ball(600,400, new Point(-8,-8));
 
 	}
-
+	
 
 	/**
 	 * Takes the inputs and applies them to the model, computing one
@@ -40,7 +35,7 @@ public class MyPongModel implements PongModel {
 	 */
 	public void compute(Set<Input> input, long delta_t) {
 		this.ball.move();
-		this.checkCollision(BarKey.LEFT, BarKey.RIGHT);
+		this.checkCollision();
 		for(Input i : input){
 			switch (i.key) {
 			case RIGHT:
@@ -63,38 +58,19 @@ public class MyPongModel implements PongModel {
 
 	}
 
-	public void score(boolean left){
-		this.ball.setLocation(this.center);
-		if (left) {
-			rightScore++;
-		}else{
-			leftScore++;
-		}
-		this.leftPos = center.y;
-		this.rightPos = center.y;
-	}
-	
-	public void checkCollision(BarKey left, BarKey right){
+	public void checkCollision(BarKey bar){
 		if (this.ball.y >= fieldSize.height || this.ball.y <= 0){
 			this.ball.changeDirection(false);
 		}
-		if (this.ball.x >= this.fieldSize.width){
-			if(this.ball.y > this.getBarPos(right)-(leftBarHeight/2) && this.ball.y < this.getBarPos(right)+(leftBarHeight/2)){				
-				this.ball.changeDirection(true);
-			}else{
-				score(true);
-			}
-		}
 		if (this.ball.x <= 0){
-			if (this.ball.y > this.getBarPos(left)-(rightBarHeight/2) && this.ball.y < this.getBarPos(left)+(rightBarHeight/2)){
+			if(this.ball.y < this.getBarPos(bar)-(leftBarHeight/2) && this.ball.y > this.getBarPos(bar)+(leftBarHeight/2)){				
 				this.ball.changeDirection(true);
-			}else{				
-				score(false);
 			}
 		}
+		this.ball.x >= this.fieldSize.width){
 	}
-
-
+	
+	
 	/**
 	 * getters that take a BarKey LEFT or RIGHT
 	 * and return positions of the various items on the board
@@ -150,9 +126,9 @@ public class MyPongModel implements PongModel {
 	public String getScore(BarKey k) {
 		switch (k) {
 		case LEFT: 
-			return ((Integer)this.leftScore).toString();
+			return this.leftScore;
 		case RIGHT:
-			return ((Integer)this.rightScore).toString();
+			return this.rightScore;
 		default:
 			return "";
 
