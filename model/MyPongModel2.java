@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Set;
 
-public class MyPongModel implements PongModel {
+public class MyPongModel2 implements PongModel {
 	private int leftBarHeight;
 	private int rightBarHeight;
 	private int leftPos;
@@ -14,7 +14,7 @@ public class MyPongModel implements PongModel {
 	private final Dimension fieldSize;
 	protected Ball ball;
 
-	public MyPongModel(String leftPlayer, String rightPlayer) {
+	public MyPongModel2(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
 		this.rightBarHeight = 150;
 		this.leftPos = 400;

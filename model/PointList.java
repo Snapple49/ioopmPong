@@ -1,19 +1,20 @@
 package model;
+import java.awt.Point;
 
-public class PointList<Point> {
-	private Point first;
-	private PointList<Point> rest;
+public class PointList<X extends Point> {
+	private X first;
+	private PointList<X> rest;
 	
-	public PointList(Point first, PointList<Point> rest) {
+	public PointList(X first, PointList<X> rest) {
 		this.first = first;
 		this.rest = rest;
 	}
 	
-	public Point getFirst() {
+	public X getFirst() {
 		return this.first;
 	}
 	
-	public PointList<Point> getRest() {
+	public PointList<X> getRest() {
 		return this.rest;
 	}
 	
