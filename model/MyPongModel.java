@@ -25,7 +25,7 @@ public class MyPongModel implements PongModel {
 		this.ball = new Ball(600,400, new Point(-8,-8));
 
 	}
-	
+
 
 	/**
 	 * Takes the inputs and applies them to the model, computing one
@@ -67,81 +67,85 @@ public class MyPongModel implements PongModel {
 				this.ball.changeDirection(true);
 			}
 		}
-		this.ball.x >= this.fieldSize.width){
-	}
-	
-	
-	/**
-	 * getters that take a BarKey LEFT or RIGHT
-	 * and return positions of the various items on the board
-	 */
-
-	public int getBarHeight(BarKey k) {
-		switch (k){
-		case LEFT:
-			return leftBarHeight;
-		case RIGHT:
-			return rightBarHeight;
-		default:
-			return 0;
+		if (this.ball.x >= this.fieldSize.width){
+			if (this.ball.y < this.getBarPos(bar)-(rightBarHeight/2) && this.ball.y > this.getBarPos(bar)+(rightBarHeight/2)){
+				
+			}
 		}
 	}
 
 
-	/**
-	 * Will output information about the state of the game to be
-	 * displayed to the players
-	 */
-	public String getMessage() {
-		return "Det här är ett kul spel!";
-	}
+		/**
+		 * getters that take a BarKey LEFT or RIGHT
+		 * and return positions of the various items on the board
+		 */
+
+		public int getBarHeight(BarKey k) {
+			switch (k){
+			case LEFT:
+				return leftBarHeight;
+			case RIGHT:
+				return rightBarHeight;
+			default:
+				return 0;
+			}
+		}
+
+
+		/**
+		 * Will output information about the state of the game to be
+		 * displayed to the players
+		 */
+		public String getMessage() {
+			return "Det här är ett kul spel!";
+		}
 
 
 
-	/**
-	 * getters that take a BarKey LEFT or RIGHT
-	 * and return positions of the various items on the board
-	 */
-	public int getBarPos(BarKey k) {
-		switch (k) {
-		case LEFT: 
-			return this.leftPos;
-		case RIGHT:
-			return this.rightPos;
-		default:
-			return 0;
+		/**
+		 * getters that take a BarKey LEFT or RIGHT
+		 * and return positions of the various items on the board
+		 */
+		public int getBarPos(BarKey k) {
+			switch (k) {
+			case LEFT: 
+				return this.leftPos;
+			case RIGHT:
+				return this.rightPos;
+			default:
+				return 0;
+			}
+
+		}
+		public Point getBallPos() {
+			return (Point) ball;
+
+		}
+
+
+
+		/**
+		 * getter for the scores.
+		 */
+		public String getScore(BarKey k) {
+			switch (k) {
+			case LEFT: 
+				return this.leftScore;
+			case RIGHT:
+				return this.rightScore;
+			default:
+				return "";
+
+			}
+
+		}
+
+		/**
+		 * a valid implementation of the model will keep the field size
+		 * will remain constant forever.
+		 */
+		public Dimension getFieldSize() {
+			return this.fieldSize;
 		}
 
 	}
-	public Point getBallPos() {
-		return (Point) ball;
-
-	}
-
-
-
-	/**
-	 * getter for the scores.
-	 */
-	public String getScore(BarKey k) {
-		switch (k) {
-		case LEFT: 
-			return this.leftScore;
-		case RIGHT:
-			return this.rightScore;
-		default:
-			return "";
-
-		}
-
-	}
-
-	/**
-	 * a valid implementation of the model will keep the field size
-	 * will remain constant forever.
-	 */
-	public Dimension getFieldSize() {
-		return this.fieldSize;
-	}
-
-}

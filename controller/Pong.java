@@ -125,7 +125,7 @@ class PongController implements KeyListener {
 
     public PongController(final ControllerOptions opt) {
         this.options = opt;
-        this.model = new MyPongModel(options.getLeftPlayer(), options.getRightPlayer());
+        this.model = new MyPongModel2(options.getLeftPlayer(), options.getRightPlayer());
         this.view = new PongView(model);
 
         this.inputMap = Collections.unmodifiableMap(new HashMap<Character,Input>() {{
