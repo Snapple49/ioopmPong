@@ -12,8 +12,6 @@ public class MyPongModel implements PongModel {
 	
 	private int leftScore;
 	private int rightScore;
-	//private int[] scoreArray = {Integer.parseInt(leftScore), Integer.parseInt(rightScore)};
-
 	private final Dimension fieldSize;
 	private Ball ball;
 	private final Point center; 
@@ -29,6 +27,19 @@ public class MyPongModel implements PongModel {
 		this.rightScore = 0;
 		this.ball = new Ball(center.x,center.y, new Point(15,0));
 
+	}
+	
+	public MyPongModel(String leftPlayer, String rightPlayer, Point velocity, Point ballPos) {
+		this.leftBarHeight = 150;
+		this.rightBarHeight = 150;
+		this.fieldSize = new Dimension(1200,800);
+		this.center = new Point(((fieldSize.width)/2), ((fieldSize.height)/2));
+		this.leftPos = center.y;
+		this.rightPos = center.y;
+		this.leftScore = 0;
+		this.rightScore = 0;
+		this.ball = new Ball(center.x,center.y, new Point(15,0));
+		
 	}
 
 

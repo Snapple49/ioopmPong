@@ -3,7 +3,7 @@ import java.awt.Point;
 
 public class Ball extends Point {
 	
-	public Point velocity;
+	protected Point velocity;
 	
 	public Ball(int x, int y, Point velocity) {
 		super(x, y);
