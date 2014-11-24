@@ -15,7 +15,8 @@ public class MyPongModel implements PongModel {
 	private final Dimension fieldSize;
 	private Ball ball;
 	private final Point center; 
-
+	int LOL = 5;
+	
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
 		this.rightBarHeight = 150;
