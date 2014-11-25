@@ -12,22 +12,32 @@ import org.junit.Test;
 
 public class RecordedGameTest {
 
+	MyPongModel testerModel = new MyPongModel("p1", "p2", new Point(600, 400), new Point(0, 0));
+	Set<Input> testInput = new HashSet<Input>();
+	Input leftBarKey = new Input(BarKey.LEFT, Dir.UP);
+	Input rightBarKey = new Input(BarKey.RIGHT, Dir.DOWN);
+
 	@Test
 	public void testGame() {
-		MyPongModel testerModel = new MyPongModel("p1", "p2", new Point(600, 400), new Point(0, 0));
-		Set<Input> testInput = new HashSet<Input>();
-		Input leftBarKey = new Input(BarKey.LEFT, Dir.UP);
-		Input rightBarKey = new Input(BarKey.RIGHT, Dir.DOWN);
-		System.out.println("Start");
-		testInput.add(leftBarKey);
-		//testInput.add(rightBarKey);
+		
+		testInput.add(leftBarKey); //Position left barkey
 		for (int i = 0; i<300; i++){
 			testerModel.compute(testInput, 1);
 		}
-		System.out.println("" + testerModel.getBarPos(BarKey.RIGHT) + "\n" + testerModel.getBarPos(BarKey.LEFT));
-		//testerModel.getBallPos().setBall(testerModel.center, new Point(10, 5));
-
-
+		testInput.remove(leftBarKey);
+		
+		testInput.add(rightBarKey); //Position right barkey
+		for (int i = 0; i<100; i++){
+			testerModel.compute(testInput, 1);
+		}
+		testInput.remove(rightBarKey);
+		
+		testerModel.getBallPos().setBall(new Point(600, 400), new Point(-10, -5)); // Start moving ball in desired track
+		for (int i = 0; i < 300; i++) {
+			testerModel.compute(testInput, 1);
+		}
+		assertEquals(testerModel.getScore(BarKey.RIGHT), "1");
+			
 	}
 
 }

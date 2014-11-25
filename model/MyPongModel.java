@@ -165,7 +165,7 @@ public class MyPongModel implements PongModel {
 
 	}
 	public Ball getBallPos() {
-		return ball;
+		return this.ball;
 
 	}
 
