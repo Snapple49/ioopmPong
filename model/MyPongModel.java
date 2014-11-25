@@ -25,7 +25,7 @@ public class MyPongModel implements PongModel {
 		this.rightPos = center.y;
 		this.leftScore = 0;
 		this.rightScore = 0;
-		this.ball = new Ball(center, new Point(15, 0));
+		this.ball = new Ball(center, new Point(5, 0));
 
 	}
 
@@ -96,11 +96,30 @@ public class MyPongModel implements PongModel {
 	private void hitSide(BarKey bar, int barHeight, boolean rightGetsPoint) {
 		if(this.ball.y > this.getBarPos(bar)-(barHeight/2) && this.ball.y < this.getBarPos(bar)+(barHeight/2)){	//Ball within barkey			
 			this.ball.changeDirection(true);
+			hitBarKey(bar, barHeight);
 		}else{
 			score(rightGetsPoint);
 		}
 	}
 
+	
+	private void hitBarKey(BarKey bar, int barHeight) {
+		switch (bar) {
+			case LEFT:
+				int diffBarBallLeft = this.leftPos - this.getBallPos().y;
+				int hitPosLeft = diffBarBallLeft + this.leftBarHeight;
+				this.ball.velocity.y += (hitPosLeft / 50);
+			case RIGHT:
+				int diffBarBallRight = this.rightPos - this.getBallPos().y;
+				int hitPosRight = diffBarBallRight + this.leftBarHeight;
+				this.ball.velocity.y += (hitPosRight / 50);
+		}
+		
+
+		
+		
+	}
+	
 	private void score(boolean rightGetsPoint){
 		if (rightGetsPoint) {
 			rightScore++;
@@ -133,6 +152,8 @@ public class MyPongModel implements PongModel {
 			return leftBarHeight;
 		case RIGHT:
 			return rightBarHeight;
+		default:
+			return 0;
 		}
 	}
 	
