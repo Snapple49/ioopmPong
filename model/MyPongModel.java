@@ -38,7 +38,7 @@ public class MyPongModel implements PongModel {
 		this.rightPos = center.y;
 		this.leftScore = 0;
 		this.rightScore = 0;
-		this.ball = new Ball(center, new Point(15,0));
+		this.ball = new Ball(ballPos, velocity);
 
 	}
 
@@ -49,7 +49,7 @@ public class MyPongModel implements PongModel {
 	 * last compute step -- use this in your time integration to have
 	 * the items move at the same speed, regardless of the framerate.
 	 */
-	public void compute(Set<Input> input, long delta_t) {
+	public void compute(Set<Input> input, long delta_t) { //TODO Move both simultaneously
 		this.ball.move();
 		this.checkCollision(BarKey.LEFT, BarKey.RIGHT);
 		for(Input i : input){
@@ -91,7 +91,7 @@ public class MyPongModel implements PongModel {
 		if (this.ball.x <= 0){ //Left side of board
 			hitSide(left, leftBarHeight, true); //Check if left missed
 		}
-	}
+	}	
 
 	private void hitSide(BarKey bar, int barHeight, boolean rightGetsPoint) {
 		if(this.ball.y > this.getBarPos(bar)-(barHeight/2) && this.ball.y < this.getBarPos(bar)+(barHeight/2)){	//Ball within barkey			
