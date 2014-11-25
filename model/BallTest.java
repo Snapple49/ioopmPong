@@ -60,10 +60,9 @@ public class BallTest {
 	@Test
 	public void testSetter() {
 		Ball testBall = new Ball(startPoint, new Point(0, 0));
-		try {
+		
 			testBall.setBall(startPoint, new Point(10, 0));
-		} catch(Ball.InvalidVelocityException e){
-		}
+		
 		assertEquals((Point)testBall, startPoint);
 		
 		testBall.move();
@@ -73,9 +72,10 @@ public class BallTest {
 		
 		int excptTest = 0;
 		try{
-			testBall.setBall(startPoint, new Point(20, 20));
+			testBall.setBall(startPoint, new Point(100, -100));
 		} catch (Ball.InvalidVelocityException e){
 			excptTest = 1;
+			
 		}
 		assertTrue(excptTest == 1);
 	}

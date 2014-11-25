@@ -38,7 +38,7 @@ public class MyPongModel implements PongModel {
 		this.rightPos = center.y;
 		this.leftScore = 0;
 		this.rightScore = 0;
-		this.ball = new Ball(center, new Point(15,0));
+		this.ball = new Ball(ballPos, velocity);
 
 	}
 
