@@ -153,7 +153,7 @@ public class MyPongModel implements PongModel {
 	 * getters that take a BarKey LEFT or RIGHT
 	 * and return positions of the various items on the board
 	 */
-	public int getBarPos(BarKey k) {
+	public int getBarPos(	BarKey k) {
 		switch (k) {
 		case LEFT: 
 			return this.leftPos;
