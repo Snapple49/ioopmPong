@@ -13,7 +13,7 @@ public class MyPongModel implements PongModel {
 	private int rightScore;
 	private final Dimension fieldSize;
 	private Ball ball;
-	private final Point center; 
+	public final Point center; 
 	
 
 	public MyPongModel(String leftPlayer, String rightPlayer) {
@@ -173,7 +173,7 @@ public class MyPongModel implements PongModel {
 	 * displayed to the players
 	 */
 	public String getMessage() {
-		return "Det h√§r √§r ett kul spel!";
+		return "Det h‰r ‰r ett kul spel!";
 	}
 
 
@@ -194,7 +194,7 @@ public class MyPongModel implements PongModel {
 
 	}
 	public Ball getBallPos() {
-		return ball;
+		return this.ball;
 
 	}
 
