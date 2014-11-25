@@ -133,8 +133,16 @@ public class MyPongModel implements PongModel {
 			return leftBarHeight;
 		case RIGHT:
 			return rightBarHeight;
-		default:
-			return 0;
+		}
+	}
+	
+	public void setBarHeight(BarKey k, int newBarHeight) {
+		switch(k) {
+		case LEFT:
+			this.leftBarHeight = newBarHeight;
+		case RIGHT:
+			this.rightBarHeight = newBarHeight;
+			
 		}
 	}
 
@@ -153,7 +161,7 @@ public class MyPongModel implements PongModel {
 	 * getters that take a BarKey LEFT or RIGHT
 	 * and return positions of the various items on the board
 	 */
-	public int getBarPos(	BarKey k) {
+	public int getBarPos(BarKey k) {
 		switch (k) {
 		case LEFT: 
 			return this.leftPos;
