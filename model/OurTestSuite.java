@@ -8,7 +8,10 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ MyPongModelTest.class, BallTest.class })
-public class TestSuite {
+@SuiteClasses({ 
+	UnitTestsSuite.class, 
+	RegressionTests.class})
 
+
+public class OurTestSuite {
 } 
