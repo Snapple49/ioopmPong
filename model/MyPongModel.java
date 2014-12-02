@@ -15,6 +15,8 @@ public class MyPongModel implements PongModel {
 	private Ball ball;
 	public final Point center; 
 	private String gameMessage = "Welcome to Pong!";
+	private final String leftPlayer;
+	private final String rightPlayer;
 
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
@@ -26,7 +28,8 @@ public class MyPongModel implements PongModel {
 		this.leftScore = 0;
 		this.rightScore = 0;
 		this.ball = new Ball(center, new Point(15, 0));
-
+		this.leftPlayer = leftPlayer;
+		this.rightPlayer = rightPlayer;
 	}
 
 	public MyPongModel(String leftPlayer, String rightPlayer, Point ballPos, Point velocity) {
@@ -39,6 +42,8 @@ public class MyPongModel implements PongModel {
 		this.leftScore = 0;
 		this.rightScore = 0;
 		this.ball = new Ball(ballPos, velocity);
+		this.leftPlayer = leftPlayer;
+		this.rightPlayer = rightPlayer;
 
 	}
 
@@ -120,10 +125,12 @@ public class MyPongModel implements PongModel {
 		case LEFT:
 			int diffBarBallLeft = this.leftPos - this.getBallPos().y;
 			int hitPosLeft = diffBarBallLeft + this.leftBarHeight;
+			this.ball.setBall(getBallPos(), new Point(ball.velocity.x+5, ball.velocity.y));
 			this.ball.velocity.y += (hitPosLeft / 50);
 		case RIGHT:
 			int diffBarBallRight = this.rightPos - this.getBallPos().y;
 			int hitPosRight = diffBarBallRight + this.leftBarHeight;
+			this.ball.setBall(getBallPos(), new Point(ball.velocity.x-5, ball.velocity.y));
 			this.ball.velocity.y += (hitPosRight / 50);
 		}
 
@@ -135,16 +142,18 @@ public class MyPongModel implements PongModel {
 	private void score(boolean rightGetsPoint){
 		if (rightGetsPoint) {
 			rightScore++;
-			gameMessage = "Score to right player!";
+			leftBarHeight -= 10;
+			gameMessage = "Score to " + this.rightPlayer + "!";
 		}else{
 			leftScore++;
-			gameMessage = "Score to left player!";
+			rightBarHeight -= 10;
+			gameMessage = "Score to " + this.leftPlayer + "!";
 		}
 		if (rightScore == 10){
-			gameMessage = "Right player won! Starting new game.";
+			gameMessage = this.rightPlayer + " won! Starting new game.";
 			reset(true);
 		}else if (leftScore == 10){
-			gameMessage = "Left player won! Starting new game.";
+			gameMessage = this.leftPlayer + " won! Starting new game.";
 			reset(true);
 		}
 		reset(false);
@@ -164,6 +173,8 @@ public class MyPongModel implements PongModel {
 		if(someoneWon){
 			rightScore = 0;
 			leftScore = 0;
+			rightBarHeight = 150;
+			leftBarHeight = 150;
 		}
 	}
 
