@@ -248,6 +248,7 @@ public class MyPongModel implements PongModel {
 	 */
 	public String getMessage() {
 		return gameMessage;
+
 	}
 
 
