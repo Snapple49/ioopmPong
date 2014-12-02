@@ -15,6 +15,8 @@ public class MyPongModel implements PongModel {
 	private Ball ball;
 	public final Point center; 
 	private String gameMessage = "Welcome to Pong!";
+	private final String leftPlayer;
+	private final String rightPlayer;
 
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
@@ -25,8 +27,10 @@ public class MyPongModel implements PongModel {
 		this.rightPos = center.y;
 		this.leftScore = 0;
 		this.rightScore = 0;
+		this.ball = new Ball(center, new Point(15, 0));
+		this.leftPlayer = leftPlayer;
+		this.rightPlayer = rightPlayer;
 
-		this.ball = new Ball(center, new Point(8, 0));
 	}
 
 	public MyPongModel(String leftPlayer, String rightPlayer, Point ballPos, Point velocity) {
@@ -39,6 +43,8 @@ public class MyPongModel implements PongModel {
 		this.leftScore = 0;
 		this.rightScore = 0;
 		this.ball = new Ball(ballPos, velocity);
+		this.leftPlayer = leftPlayer;
+		this.rightPlayer = rightPlayer;
 
 	}
 
@@ -126,50 +132,53 @@ public class MyPongModel implements PongModel {
 		int bigLowerCurve;
 		switch (bar) {
 
-			case LEFT:
-				barUpperEnd = this.leftPos - (this.leftBarHeight/2);
-				smallUpperCurve = this.leftPos - (this.leftBarHeight/3);
-				bigUpperCurve = smallUpperCurve - (this.leftBarHeight/3);
-				barLowerEnd = this.leftPos + (this.leftBarHeight/2);
-				smallLowerCurve = this.leftPos + (this.leftBarHeight/3);
-				bigLowerCurve = smallLowerCurve + (this.leftBarHeight/3);
-				if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
-					this.ball.velocity.y = -4;
-				}
-				if (ballPos > bigUpperCurve && ballPos <= smallUpperCurve) {
-					this.ball.velocity.y = -2;
-				}
-				if (ballPos >= smallLowerCurve && ballPos <= bigLowerCurve) {
-					this.ball.velocity.y = 2;
-				}
-				if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
-					this.ball.velocity.y = 4;
-				}
-				this.ball.changeDirection(true);
-				break;
-				
-				
-			case RIGHT:	
-				barUpperEnd = this.rightPos - (this.rightBarHeight/2) - 10;
-				smallUpperCurve = this.rightPos - (this.rightBarHeight/3);
-				bigUpperCurve = smallUpperCurve - (this.rightBarHeight/3);
-				barLowerEnd = this.rightPos + (this.rightBarHeight/2) + 10;
-				smallLowerCurve = this.rightPos + (this.rightBarHeight/3);
-				bigLowerCurve = smallLowerCurve + (this.rightBarHeight/3);
-				if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
-					this.ball.velocity.y = -2;
-				}
-				if (ballPos > bigUpperCurve && ballPos <= smallUpperCurve) {
-					this.ball.velocity.y = -1;
-				}
-				if (ballPos >= smallLowerCurve && ballPos <= bigLowerCurve) {
-					this.ball.velocity.y = 1;
-				}
-				if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
-					this.ball.velocity.y = 2;
-				}
-				this.ball.changeDirection(true);
-				break;
+
+		case LEFT:
+			barUpperEnd = this.leftPos - (this.leftBarHeight/2);
+			smallUpperCurve = this.leftPos - (this.leftBarHeight/3);
+			bigUpperCurve = smallUpperCurve - (this.leftBarHeight/3);
+			barLowerEnd = this.leftPos + (this.leftBarHeight/2);
+			smallLowerCurve = this.leftPos + (this.leftBarHeight/3);
+			bigLowerCurve = smallLowerCurve + (this.leftBarHeight/3);
+			if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
+				this.ball.velocity.y = -4;
+			}
+			if (ballPos > bigUpperCurve && ballPos <= smallUpperCurve) {
+				this.ball.velocity.y = -2;
+			}
+			if (ballPos >= smallLowerCurve && ballPos <= bigLowerCurve) {
+				this.ball.velocity.y = 2;
+			}
+			if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
+				this.ball.velocity.y = 4;
+			}
+			this.ball.changeDirection(true);
+			this.ball.setBall(getBallPos(), new Point(ball.velocity.x+5, ball.velocity.y));
+			break;
+
+
+		case RIGHT:	
+			barUpperEnd = this.rightPos - (this.rightBarHeight/2) - 10;
+			smallUpperCurve = this.rightPos - (this.rightBarHeight/3);
+			bigUpperCurve = smallUpperCurve - (this.rightBarHeight/3);
+			barLowerEnd = this.rightPos + (this.rightBarHeight/2) + 10;
+			smallLowerCurve = this.rightPos + (this.rightBarHeight/3);
+			bigLowerCurve = smallLowerCurve + (this.rightBarHeight/3);
+			if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
+				this.ball.velocity.y = -2;
+			}
+			if (ballPos > bigUpperCurve && ballPos <= smallUpperCurve) {
+				this.ball.velocity.y = -1;
+			}
+			if (ballPos >= smallLowerCurve && ballPos <= bigLowerCurve) {
+				this.ball.velocity.y = 1;
+			}
+			if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
+				this.ball.velocity.y = 2;
+			}
+			this.ball.changeDirection(true);
+			this.ball.setBall(getBallPos(), new Point(ball.velocity.x-5, ball.velocity.y));
+			break;
 
 		}
 
@@ -181,16 +190,18 @@ public class MyPongModel implements PongModel {
 	private void score(boolean rightGetsPoint){
 		if (rightGetsPoint) {
 			rightScore++;
-			gameMessage = "Score to right player!";
+			leftBarHeight -= 10;
+			gameMessage = "Score to " + this.rightPlayer + "!";
 		}else{
 			leftScore++;
-			gameMessage = "Score to left player!";
+			rightBarHeight -= 10;
+			gameMessage = "Score to " + this.leftPlayer + "!";
 		}
 		if (rightScore == 10){
-			gameMessage = "Right player won! Starting new game.";
+			gameMessage = this.rightPlayer + " won! Starting new game.";
 			reset(true);
 		}else if (leftScore == 10){
-			gameMessage = "Left player won! Starting new game.";
+			gameMessage = this.leftPlayer + " won! Starting new game.";
 			reset(true);
 		}
 		reset(false);
@@ -199,9 +210,9 @@ public class MyPongModel implements PongModel {
 	private void reset(boolean someoneWon) {
 		int dir = (int) (Math.random()*2 + 1);
 		if (dir == 1){
-			dir = -8;
+			dir = -15;
 		}else{
-			dir = 8;
+			dir = 15;
 		}
 		this.ball.setBall(this.center, new Point(dir, 0));
 		this.rightPos = this.center.y;
@@ -210,6 +221,8 @@ public class MyPongModel implements PongModel {
 		if(someoneWon){
 			rightScore = 0;
 			leftScore = 0;
+			rightBarHeight = 150;
+			leftBarHeight = 150;
 		}
 	}
 
