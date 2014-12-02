@@ -57,7 +57,9 @@ public class MyPongModel implements PongModel {
 			case RIGHT:
 				switch(i.dir){
 				case UP:
+					if (rightPos >= (0 + (rightPos))) {
 					rightPos -=delta_t/3;
+					}
 					break;
 				case DOWN:
 					rightPos +=delta_t/3;
