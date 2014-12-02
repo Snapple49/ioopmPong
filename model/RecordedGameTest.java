@@ -36,7 +36,10 @@ public class RecordedGameTest {
 		for (int i = 0; i < 300; i++) {
 			testerModel.compute(testInput, 1);
 		}
+		System.out.println(testerModel.getBallPos().toString());
+		System.out.println(testerModel.getBallPos().velocity.toString());
 		assertEquals(testerModel.getScore(BarKey.RIGHT), "1");
+		assertEquals(testerModel.getBallPos(), new Point(0, 500));
 			
 	}
 

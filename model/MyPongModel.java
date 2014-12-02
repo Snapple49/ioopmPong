@@ -14,7 +14,7 @@ public class MyPongModel implements PongModel {
 	private final Dimension fieldSize;
 	private Ball ball;
 	public final Point center; 
-	
+	private String gameMessage = "Welcome to Pong!";
 
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
@@ -25,8 +25,8 @@ public class MyPongModel implements PongModel {
 		this.rightPos = center.y;
 		this.leftScore = 0;
 		this.rightScore = 0;
-		this.ball = new Ball(center, new Point(8, 0));
 
+		this.ball = new Ball(center, new Point(8, 0));
 	}
 
 	public MyPongModel(String leftPlayer, String rightPlayer, Point ballPos, Point velocity) {
@@ -42,6 +42,12 @@ public class MyPongModel implements PongModel {
 
 	}
 
+	public boolean barkeysAreInField(){
+		return(getBarPos(BarKey.RIGHT) < fieldSize.height-getBarHeight(BarKey.RIGHT)/2 &&
+				getBarPos(BarKey.RIGHT) > getBarHeight(BarKey.RIGHT)/2 &&
+				getBarPos(BarKey.LEFT) < fieldSize.height-getBarHeight(BarKey.LEFT)/2 &&
+				getBarPos(BarKey.LEFT) > getBarHeight(BarKey.LEFT)/2);
+	}
 
 	/**
 	 * Takes the inputs and applies them to the model, computing one
@@ -53,35 +59,41 @@ public class MyPongModel implements PongModel {
 		this.ball.move();
 		this.checkCollision(BarKey.LEFT, BarKey.RIGHT);
 		for(Input i : input){
+
 			switch (i.key) {
 			case RIGHT:
 				switch(i.dir){
 				case UP:
-					if (rightPos >= (0 + (rightPos))) {
-					rightPos -=delta_t/3;
-					}
+
+					if(getBarPos(BarKey.RIGHT) > getBarHeight(BarKey.RIGHT)/2)
+						rightPos-=delta_t/1.5;
 					break;
 				case DOWN:
-					rightPos +=delta_t/3;
+					if(getBarPos(BarKey.RIGHT) < fieldSize.height-getBarHeight(BarKey.RIGHT)/2)
+						rightPos+=delta_t/1.5;
+
 					break;
 				}	
 				break;
+
 			case LEFT:
 				switch(i.dir){
 				case UP:
-					leftPos -=delta_t/3;
+					if(getBarPos(BarKey.LEFT) > getBarHeight(BarKey.LEFT)/2)
+						leftPos-=delta_t/1.5;
 					break;
 				case DOWN:
-					leftPos +=delta_t/3;
+					if(getBarPos(BarKey.LEFT) < fieldSize.height-getBarHeight(BarKey.LEFT)/2)
+						leftPos+=delta_t/1.5;
 					break;
 				}
 				break;
 
 			}
-		}
 
+		}
 	}
-	
+
 
 	public void checkCollision(BarKey left, BarKey right){
 		if (this.ball.y >= fieldSize.height || this.ball.y <= 0){
@@ -103,7 +115,7 @@ public class MyPongModel implements PongModel {
 		}
 	}
 
-	
+
 	private void hitBarKey(BarKey bar, int barHeight) {
 		int ballPos = this.getBallPos().y;
 		int barUpperEnd;
@@ -113,6 +125,7 @@ public class MyPongModel implements PongModel {
 		int smallLowerCurve;
 		int bigLowerCurve;
 		switch (bar) {
+
 			case LEFT:
 				barUpperEnd = this.leftPos - (this.leftBarHeight/2);
 				smallUpperCurve = this.leftPos - (this.leftBarHeight/3);
@@ -136,11 +149,6 @@ public class MyPongModel implements PongModel {
 				break;
 				
 				
-				/*int diffBarBallLeft = this.leftPos - this.getBallPos().y;
-				int hitPosLeft = diffBarBallLeft + this.leftBarHeight;
-				this.ball.changeDirection(true);
-				this.ball.velocity.y += (hitPosLeft / 50);*/
-				
 			case RIGHT:	
 				barUpperEnd = this.rightPos - (this.rightBarHeight/2) - 10;
 				smallUpperCurve = this.rightPos - (this.rightBarHeight/3);
@@ -162,29 +170,33 @@ public class MyPongModel implements PongModel {
 				}
 				this.ball.changeDirection(true);
 				break;
-				/*
-				int diffBarBallRight = this.rightPos - this.getBallPos().y;
-				int hitPosRight = diffBarBallRight + this.leftBarHeight;
-				this.ball.changeDirection(true);
-				this.ball.velocity.y += (hitPosRight / 50);*/
-				
-		}
-		
 
-		
-		
+		}
+
+
+
+
 	}
-	
+
 	private void score(boolean rightGetsPoint){
 		if (rightGetsPoint) {
 			rightScore++;
+			gameMessage = "Score to right player!";
 		}else{
 			leftScore++;
+			gameMessage = "Score to left player!";
 		}
-		reset();
+		if (rightScore == 10){
+			gameMessage = "Right player won! Starting new game.";
+			reset(true);
+		}else if (leftScore == 10){
+			gameMessage = "Left player won! Starting new game.";
+			reset(true);
+		}
+		reset(false);
 	}
-	
-	private void reset() {
+
+	private void reset(boolean someoneWon) {
 		int dir = (int) (Math.random()*2 + 1);
 		if (dir == 1){
 			dir = -8;
@@ -194,6 +206,11 @@ public class MyPongModel implements PongModel {
 		this.ball.setBall(this.center, new Point(dir, 0));
 		this.rightPos = this.center.y;
 		this.leftPos = this.center.y;
+
+		if(someoneWon){
+			rightScore = 0;
+			leftScore = 0;
+		}
 	}
 
 	/**
@@ -211,16 +228,18 @@ public class MyPongModel implements PongModel {
 			return 0;
 		}
 	}
-	
+
 	public void setBarHeight(BarKey k, int newBarHeight) {
 		switch(k) {
 		case LEFT:
 			this.leftBarHeight = newBarHeight;
 		case RIGHT:
 			this.rightBarHeight = newBarHeight;
-			
+
 		}
 	}
+
+
 
 
 	/**
@@ -228,7 +247,7 @@ public class MyPongModel implements PongModel {
 	 * displayed to the players
 	 */
 	public String getMessage() {
-		return "Det h�r �r ett kul spel!";
+		return gameMessage;
 	}
 
 
