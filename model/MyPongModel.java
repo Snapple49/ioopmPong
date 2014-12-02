@@ -25,7 +25,7 @@ public class MyPongModel implements PongModel {
 		this.rightPos = center.y;
 		this.leftScore = 0;
 		this.rightScore = 0;
-		this.ball = new Ball(center, new Point(5, 0));
+		this.ball = new Ball(center, new Point(8, 0));
 
 	}
 
@@ -57,20 +57,20 @@ public class MyPongModel implements PongModel {
 			case RIGHT:
 				switch(i.dir){
 				case UP:
-					rightPos--;
+					rightPos -=delta_t/3;
 					break;
 				case DOWN:
-					rightPos++;
+					rightPos +=delta_t/3;
 					break;
 				}	
 				break;
 			case LEFT:
 				switch(i.dir){
 				case UP:
-					leftPos--;
+					leftPos -=delta_t/3;
 					break;
 				case DOWN:
-					leftPos++;
+					leftPos +=delta_t/3;
 					break;
 				}
 				break;
@@ -95,7 +95,6 @@ public class MyPongModel implements PongModel {
 
 	private void hitSide(BarKey bar, int barHeight, boolean rightGetsPoint) {
 		if(this.ball.y > this.getBarPos(bar)-(barHeight/2) && this.ball.y < this.getBarPos(bar)+(barHeight/2)){	//Ball within barkey			
-			this.ball.changeDirection(true);
 			hitBarKey(bar, barHeight);
 		}else{
 			score(rightGetsPoint);
@@ -104,15 +103,69 @@ public class MyPongModel implements PongModel {
 
 	
 	private void hitBarKey(BarKey bar, int barHeight) {
+		int ballPos = this.getBallPos().y;
+		int barUpperEnd;
+		int smallUpperCurve;
+		int bigUpperCurve;
+		int barLowerEnd;
+		int smallLowerCurve;
+		int bigLowerCurve;
 		switch (bar) {
 			case LEFT:
-				int diffBarBallLeft = this.leftPos - this.getBallPos().y;
+				barUpperEnd = this.leftPos - (this.leftBarHeight/2);
+				smallUpperCurve = this.leftPos - (this.leftBarHeight/3);
+				bigUpperCurve = smallUpperCurve - (this.leftBarHeight/3);
+				barLowerEnd = this.leftPos + (this.leftBarHeight/2);
+				smallLowerCurve = this.leftPos + (this.leftBarHeight/3);
+				bigLowerCurve = smallLowerCurve + (this.leftBarHeight/3);
+				if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
+					this.ball.velocity.y = -4;
+				}
+				if (ballPos > bigUpperCurve && ballPos <= smallUpperCurve) {
+					this.ball.velocity.y = -2;
+				}
+				if (ballPos >= smallLowerCurve && ballPos <= bigLowerCurve) {
+					this.ball.velocity.y = 2;
+				}
+				if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
+					this.ball.velocity.y = 4;
+				}
+				this.ball.changeDirection(true);
+				break;
+				
+				
+				/*int diffBarBallLeft = this.leftPos - this.getBallPos().y;
 				int hitPosLeft = diffBarBallLeft + this.leftBarHeight;
-				this.ball.velocity.y += (hitPosLeft / 50);
-			case RIGHT:
+				this.ball.changeDirection(true);
+				this.ball.velocity.y += (hitPosLeft / 50);*/
+				
+			case RIGHT:	
+				barUpperEnd = this.rightPos - (this.rightBarHeight/2) - 10;
+				smallUpperCurve = this.rightPos - (this.rightBarHeight/3);
+				bigUpperCurve = smallUpperCurve - (this.rightBarHeight/3);
+				barLowerEnd = this.rightPos + (this.rightBarHeight/2) + 10;
+				smallLowerCurve = this.rightPos + (this.rightBarHeight/3);
+				bigLowerCurve = smallLowerCurve + (this.rightBarHeight/3);
+				if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
+					this.ball.velocity.y = -2;
+				}
+				if (ballPos > bigUpperCurve && ballPos <= smallUpperCurve) {
+					this.ball.velocity.y = -1;
+				}
+				if (ballPos >= smallLowerCurve && ballPos <= bigLowerCurve) {
+					this.ball.velocity.y = 1;
+				}
+				if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
+					this.ball.velocity.y = 2;
+				}
+				this.ball.changeDirection(true);
+				break;
+				/*
 				int diffBarBallRight = this.rightPos - this.getBallPos().y;
 				int hitPosRight = diffBarBallRight + this.leftBarHeight;
-				this.ball.velocity.y += (hitPosRight / 50);
+				this.ball.changeDirection(true);
+				this.ball.velocity.y += (hitPosRight / 50);*/
+				
 		}
 		
 
@@ -132,9 +185,9 @@ public class MyPongModel implements PongModel {
 	private void reset() {
 		int dir = (int) (Math.random()*2 + 1);
 		if (dir == 1){
-			dir = -30;
+			dir = -8;
 		}else{
-			dir = 30;
+			dir = 8;
 		}
 		this.ball.setBall(this.center, new Point(dir, 0));
 		this.rightPos = this.center.y;
@@ -173,7 +226,7 @@ public class MyPongModel implements PongModel {
 	 * displayed to the players
 	 */
 	public String getMessage() {
-		return "Det här är ett kul spel!";
+		return "Det hï¿½r ï¿½r ett kul spel!";
 	}
 
 
