@@ -18,7 +18,7 @@ public class MyPongModelTest {
 		assertEquals(testModel.getScore(BarKey.RIGHT),"1");
 		testModel.score(false);
 		assertEquals(testModel.getScore(BarKey.LEFT),"1");
-	} */
+	    } */
 
 	@Test
 	public void computeTest() {

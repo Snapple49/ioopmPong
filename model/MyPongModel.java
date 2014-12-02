@@ -14,7 +14,7 @@ public class MyPongModel implements PongModel {
 	private final Dimension fieldSize;
 	private Ball ball;
 	public final Point center; 
-	
+	private String gameMessage = "Welcome to Pong!";
 
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
@@ -42,6 +42,12 @@ public class MyPongModel implements PongModel {
 
 	}
 
+	public boolean barkeysAreInField(){
+		return(getBarPos(BarKey.RIGHT) < fieldSize.height-getBarHeight(BarKey.RIGHT)/2 &&
+				getBarPos(BarKey.RIGHT) > getBarHeight(BarKey.RIGHT)/2 &&
+				getBarPos(BarKey.LEFT) < fieldSize.height-getBarHeight(BarKey.LEFT)/2 &&
+				getBarPos(BarKey.LEFT) > getBarHeight(BarKey.LEFT)/2);
+	}
 
 	/**
 	 * Takes the inputs and applies them to the model, computing one
@@ -53,33 +59,39 @@ public class MyPongModel implements PongModel {
 		this.ball.move();
 		this.checkCollision(BarKey.LEFT, BarKey.RIGHT);
 		for(Input i : input){
+
 			switch (i.key) {
 			case RIGHT:
 				switch(i.dir){
 				case UP:
-					rightPos--;
+					if(getBarPos(BarKey.RIGHT) > getBarHeight(BarKey.RIGHT)/2)
+						rightPos-=delta_t/2;
 					break;
 				case DOWN:
-					rightPos++;
+					if(getBarPos(BarKey.RIGHT) < fieldSize.height-getBarHeight(BarKey.RIGHT)/2)
+						rightPos+=delta_t/2;
 					break;
 				}	
 				break;
+
 			case LEFT:
 				switch(i.dir){
 				case UP:
-					leftPos--;
+					if(getBarPos(BarKey.LEFT) > getBarHeight(BarKey.LEFT)/2)
+						leftPos-=delta_t/1.5;
 					break;
 				case DOWN:
-					leftPos++;
+					if(getBarPos(BarKey.LEFT) < fieldSize.height-getBarHeight(BarKey.LEFT)/2)
+						leftPos+=delta_t/1.5;
 					break;
 				}
 				break;
 
 			}
-		}
 
+		}
 	}
-	
+
 
 	public void checkCollision(BarKey left, BarKey right){
 		if (this.ball.y >= fieldSize.height || this.ball.y <= 0){
@@ -102,33 +114,36 @@ public class MyPongModel implements PongModel {
 		}
 	}
 
-	
+
 	private void hitBarKey(BarKey bar, int barHeight) {
 		switch (bar) {
-			case LEFT:
-				int diffBarBallLeft = this.leftPos - this.getBallPos().y;
-				int hitPosLeft = diffBarBallLeft + this.leftBarHeight;
-				this.ball.velocity.y += (hitPosLeft / 50);
-			case RIGHT:
-				int diffBarBallRight = this.rightPos - this.getBallPos().y;
-				int hitPosRight = diffBarBallRight + this.leftBarHeight;
-				this.ball.velocity.y += (hitPosRight / 50);
+		case LEFT:
+			int diffBarBallLeft = this.leftPos - this.getBallPos().y;
+			int hitPosLeft = diffBarBallLeft + this.leftBarHeight;
+			this.ball.velocity.y += (hitPosLeft / 50);
+		case RIGHT:
+			int diffBarBallRight = this.rightPos - this.getBallPos().y;
+			int hitPosRight = diffBarBallRight + this.leftBarHeight;
+			this.ball.velocity.y += (hitPosRight / 50);
 		}
-		
 
-		
-		
+
+
+
 	}
-	
+
 	private void score(boolean rightGetsPoint){
 		if (rightGetsPoint) {
 			rightScore++;
 		}else{
 			leftScore++;
 		}
+		if (rightScore == 10){
+
+		}
 		reset();
 	}
-	
+
 	private void reset() {
 		int dir = (int) (Math.random()*2 + 1);
 		if (dir == 1){
@@ -156,16 +171,18 @@ public class MyPongModel implements PongModel {
 			return 0;
 		}
 	}
-	
+
 	public void setBarHeight(BarKey k, int newBarHeight) {
 		switch(k) {
 		case LEFT:
 			this.leftBarHeight = newBarHeight;
 		case RIGHT:
 			this.rightBarHeight = newBarHeight;
-			
+
 		}
 	}
+
+
 
 
 	/**
@@ -173,7 +190,7 @@ public class MyPongModel implements PongModel {
 	 * displayed to the players
 	 */
 	public String getMessage() {
-		return "Det här är ett kul spel!";
+		return gameMessage;
 	}
 
 
