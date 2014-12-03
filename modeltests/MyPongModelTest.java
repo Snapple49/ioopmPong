@@ -1,10 +1,13 @@
-package model;
+package modeltests;
 
 import java.awt.Point;
 import java.util.Set;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
+import model.BarKey;
+import model.Input;
+import model.MyPongModel;
 import model.Input.Dir;
 
 import org.junit.Test;

@@ -1,8 +1,11 @@
-package model;
+package modeltests;
 
 import static org.junit.Assert.*;
 
 import java.awt.Point;
+
+import model.Ball;
+import model.Ball.InvalidVelocityException;
 
 import org.junit.Test;
 

@@ -280,12 +280,14 @@ public class MyPongModel implements PongModel {
 		}
 
 	}
-	public Ball getBallPos() {
-		return this.ball;
+	public Point getBallPos() {
+		return new Point(this.ball.x, this.ball.y);
 
 	}
 
-
+	public Ball getBall() { //Intended for testing only
+		return this.ball;
+	}
 
 	/**
 	 * getter for the scores.
