@@ -6,7 +6,7 @@ import java.util.Set;
 
 
 /**
- * The Class MyPongModel represent the model of Pong. It contains the methods for moving the ball and the barkeys, bouncing the ball on the sides or the barkeys, scoring and resetting the game. 
+ * The Class MyPongModel represent the model of Pong. It contains the methods for the barkeys, bouncing the ball on the sides or the barkeys, scoring and resetting the game. 
  */
 public class MyPongModel implements PongModel {
 	
@@ -158,7 +158,7 @@ public class MyPongModel implements PongModel {
 	 */
 	public void checkCollision(BarKey left, BarKey right){
 		if (this.ball.y >= fieldSize.height || this.ball.y <= 0){
-			this.ball.changeDirection(false);
+			this.ball.bounce(false);
 		}
 		if (this.ball.x >= this.fieldSize.width){ //Right side of board
 			hitSide(right, rightBarHeight, false); //Check if right missed
@@ -220,7 +220,7 @@ public class MyPongModel implements PongModel {
 			if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
 				this.ball.velocity.y += 8;
 			}
-			this.ball.changeDirection(true);
+			this.ball.bounce(true);
 			this.ball.setBall(getBallPos(), new Point(ball.velocity.x+5, ball.velocity.y));
 			break;
 
@@ -244,7 +244,7 @@ public class MyPongModel implements PongModel {
 			if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
 				this.ball.velocity.y += 8;
 			}
-			this.ball.changeDirection(true);
+			this.ball.bounce(true);
 			this.ball.setBall(getBallPos(), new Point(ball.velocity.x-5, ball.velocity.y));
 			break;
 
