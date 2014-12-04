@@ -6,14 +6,20 @@ all: $(CLASSFILES)
 $(CLASSFILES): %.class: %.java
 	javac $<
 
+build: all 
+
 run: all
 	./run
-
-BallTest.class: model/BallTest.java
-	javac -g model/BallTest.java
 	
-MyPongModelTest.class: model/MyPongModelTest.java
-	javac -g model/MyPongModelTest.java
+options: all
+	javac controller/Pong.java
+	
+
+BallTest.class: modeltests/BallTest.java
+	javac -g modeltests/BallTest.java
+	
+MyPongModelTest.class: modeltests/MyPongModelTest.java
+	javac -g modeltests/MyPongModelTest.java
 	
 unitTests: BallTest.class MyPongModelTest.class
 	java -cp .:/usr/share/java/junit.jar org.junit.runner.JUnitCore BallTest

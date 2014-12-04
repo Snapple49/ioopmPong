@@ -43,8 +43,10 @@ public class MyPongModel implements PongModel {
 	/** The name of the left player. */
 	private final String leftPlayer;
 	
-	/** The name of the player. */
+	/** The name of the right player. */
 	private final String rightPlayer;
+	
+	private boolean newGame = false;
 
 	/**
 	 * Instantiates a new my pong model.
@@ -90,17 +92,8 @@ public class MyPongModel implements PongModel {
 
 	}
 
-	/**
-	 * Checks if the barkeys are within the field.
-	 *
-	 * @return true, if the barkeys are within the field. False otherwise.
-	 */
-	public boolean barkeysAreInField(){
-		return(getBarPos(BarKey.RIGHT) < fieldSize.height-getBarHeight(BarKey.RIGHT)/2 &&
-				getBarPos(BarKey.RIGHT) > getBarHeight(BarKey.RIGHT)/2 &&
-				getBarPos(BarKey.LEFT) < fieldSize.height-getBarHeight(BarKey.LEFT)/2 &&
-				getBarPos(BarKey.LEFT) > getBarHeight(BarKey.LEFT)/2);
-	}
+
+	
 
 	/**
 	 * 
@@ -111,6 +104,16 @@ public class MyPongModel implements PongModel {
 	 * @param delta_t the time that has passed since the last compute step.
 	 */
 	public void compute(Set<Input> input, long delta_t) { //TODO Move both simultaneously
+		if (newGame) {
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			newGame = false;
+			this.gameMessage = "New game started!";
+		}
 		this.ball.move();
 		this.checkCollision(BarKey.LEFT, BarKey.RIGHT);
 		for(Input i : input){
@@ -270,12 +273,16 @@ public class MyPongModel implements PongModel {
 			rightBarHeight -= 10;
 			gameMessage = "Score to " + this.leftPlayer + "!";
 		}
-		if (rightScore == 10){
+		if (rightScore == 1){
 			gameMessage = this.rightPlayer + " won! Starting new game.";
 			reset(true);
+			this.newGame = true;
+			
+
 		}else if (leftScore == 10){
 			gameMessage = this.leftPlayer + " won! Starting new game.";
 			reset(true);
+			this.newGame = true;
 		}
 		reset(false);
 	}
