@@ -31,11 +31,11 @@ public class MyPongModelTest {
 		testInput2.add(testBarLeftDown);
 		testInput.add(testBarLeftUp);
 		
-		testModel.compute(testInput, 1);
+		testModel.compute(testInput, 2);
 		assertTrue(testModel.getBarPos(BarKey.LEFT) == 399);
 		
 		assertTrue(testModel.getBarPos(BarKey.RIGHT) == 401);
-		testModel.compute(testInput2, 1);
+		testModel.compute(testInput2, 2);
 		assertTrue(testModel.getBarPos(BarKey.LEFT) == 400);
 		assertTrue(testModel.getBarPos(BarKey.RIGHT) == 400);
 		
@@ -101,8 +101,7 @@ public class MyPongModelTest {
 		assertTrue(testModel2.getBallPos().x == 0);
 		
 		testModel2.compute(testInput, 1);
-		System.out.println(testModel2.getBallPos());
-		assertTrue(testModel2.getBallPos().x == 5);
+		assertTrue(testModel2.getBallPos().x == 10);
 		
 		
 	}
@@ -125,7 +124,7 @@ public class MyPongModelTest {
 		
 	}
 	@Test
-	public void hitBarKeyTest() {
+	public void hitBarkeyMiddleTest() {
 		MyPongModel testModel = new MyPongModel("hej", "hoj", new Point(1199, 400), new Point(5,0));
 		int oldPosY = testModel.getBallPos().y;
 		Set<Input> testInput = new HashSet<Input>();
@@ -134,6 +133,18 @@ public class MyPongModelTest {
 		testModel.compute(testInput, 1);
 		int newPosY = testModel.getBallPos().y;
 		assertEquals(oldPosY, newPosY);
+	}
+	
+	@Test
+	public void hitBarkeySmallCurveTest() {
+		MyPongModel testModel = new MyPongModel("hej", "hoj", new Point(1199, 374), new Point(5,0));
+		int oldPosY = testModel.getBallPos().y;
+		Set<Input> testInput = new HashSet<Input>();
+		testModel.compute(testInput, 1);
+		testModel.compute(testInput, 1);
+		int newPosY = testModel.getBallPos().y;
+		System.out.println(oldPosY + "  " + newPosY);
+		assertEquals(oldPosY - 4, newPosY);
 		
 	}
 }

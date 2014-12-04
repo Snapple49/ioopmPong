@@ -50,13 +50,13 @@ public class BallTest {
 	public void testChangeDir() {
 		Point vel = new Point(-8, 3);
 		Ball testBall = new Ball(startPoint, vel);
-		testBall.changeDirection(false);
+		testBall.bounce(false);
 		assertTrue(testBall.velocity.x == -8 && testBall.velocity.y == -3);
-		testBall.changeDirection(true);
+		testBall.bounce(true);
 		assertTrue(testBall.velocity.x == 8 && testBall.velocity.y == -3);
-		testBall.changeDirection(true);
+		testBall.bounce(true);
 		assertTrue(testBall.velocity.x == -8 && testBall.velocity.y == -3);
-		testBall.changeDirection(false);
+		testBall.bounce(false);
 		assertTrue(testBall.velocity.x == -8 && testBall.velocity.y == 3);
 	}
 

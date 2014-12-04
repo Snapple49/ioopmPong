@@ -121,11 +121,11 @@ public class MyPongModel implements PongModel {
 				case UP:
 
 					if(getBarPos(BarKey.RIGHT) > getBarHeight(BarKey.RIGHT)/2)
-						rightPos-=delta_t/1.5;
+						rightPos-=delta_t/2;
 					break;
 				case DOWN:
 					if(getBarPos(BarKey.RIGHT) < fieldSize.height-getBarHeight(BarKey.RIGHT)/2)
-						rightPos+=delta_t/1.5;
+						rightPos+=delta_t/2;
 
 					break;
 				}	
@@ -226,12 +226,12 @@ public class MyPongModel implements PongModel {
 
 
 		case RIGHT:	
-			barUpperEnd = this.rightPos - (this.rightBarHeight/2) - 10;
-			smallUpperCurve = this.rightPos - (this.rightBarHeight/3);
-			bigUpperCurve = smallUpperCurve - (this.rightBarHeight/3);
-			barLowerEnd = this.rightPos + (this.rightBarHeight/2) + 10;
-			smallLowerCurve = this.rightPos + (this.rightBarHeight/3);
-			bigLowerCurve = smallLowerCurve + (this.rightBarHeight/3);
+			barUpperEnd = this.rightPos - (this.rightBarHeight/2);
+			smallUpperCurve = this.rightPos - (this.rightBarHeight/6);
+			bigUpperCurve = smallUpperCurve - (this.rightBarHeight/6);
+			barLowerEnd = this.rightPos + (this.rightBarHeight/2);
+			smallLowerCurve = this.rightPos + (this.rightBarHeight/6);
+			bigLowerCurve = smallLowerCurve + (this.rightBarHeight/6);
 			if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
 				this.ball.velocity.y -= 8;
 			}
