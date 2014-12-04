@@ -113,6 +113,12 @@ public class MyPongModel implements PongModel {
 			}
 			newGame = false;
 			this.gameMessage = "New game started!";
+			this.rightPos = this.center.y;
+			this.leftPos = this.center.y;
+			
+		}
+		if (delta_t > 1000){
+			delta_t = 0;
 		}
 		this.ball.move();
 		this.checkCollision(BarKey.LEFT, BarKey.RIGHT);
@@ -275,7 +281,7 @@ public class MyPongModel implements PongModel {
 		}
 		if (rightScore == 1){
 			gameMessage = this.rightPlayer + " won! Starting new game.";
-			reset(true);
+			this.reset(true);
 			this.newGame = true;
 			
 
