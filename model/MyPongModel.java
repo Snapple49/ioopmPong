@@ -91,9 +91,9 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
-	 * Barkeys are in field.
+	 * Checks if the barkeys are within the field.
 	 *
-	 * @return true, if successful
+	 * @return true, if the barkeys are within the field. False otherwise.
 	 */
 	public boolean barkeysAreInField(){
 		return(getBarPos(BarKey.RIGHT) < fieldSize.height-getBarHeight(BarKey.RIGHT)/2 &&

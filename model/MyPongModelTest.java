@@ -10,15 +10,7 @@ import model.Input.Dir;
 import org.junit.Test;
 
 public class MyPongModelTest {
-	/*
-	@Test
-	public void scoreTest() {
-		MyPongModel testModel = new MyPongModel("hej", "hoj");
-		testModel.score(true);
-		assertEquals(testModel.getScore(BarKey.RIGHT),"1");
-		testModel.score(false);
-		assertEquals(testModel.getScore(BarKey.LEFT),"1");
-	    } */
+
 
 	@Test
 	public void computeTest() {
@@ -87,7 +79,7 @@ public class MyPongModelTest {
 		assertTrue(testModel2.getBallPos().y == 795);
 	}
 	@Test
-	public void testCheckCollisionBarsTest() {
+	public void testCheckCollisionBars() {
 		MyPongModel testModel = new MyPongModel("hej", "hoj", new Point(1195, 400), new Point(5,0));
 		
 		Set<Input> testInput = new HashSet<Input>();
@@ -98,7 +90,7 @@ public class MyPongModelTest {
 		assertTrue(testModel.getBallPos().x == 1200);
 		
 		testModel.compute(testInput, 1);
-		assertTrue(testModel.getBallPos().x == 1195);
+		assertTrue(testModel.getBallPos().x == 1190);
 		
 		MyPongModel testModel2 = new MyPongModel("hej", "hoj", new Point(5, 400), new Point(-5,0));
 
@@ -106,6 +98,7 @@ public class MyPongModelTest {
 		assertTrue(testModel2.getBallPos().x == 0);
 		
 		testModel2.compute(testInput, 1);
+		System.out.println(testModel2.getBallPos());
 		assertTrue(testModel2.getBallPos().x == 5);
 		
 		
@@ -128,5 +121,16 @@ public class MyPongModelTest {
 		
 		
 	}
-	
+	@Test
+	public void hitBarKeyTest() {
+		MyPongModel testModel = new MyPongModel("hej", "hoj", new Point(1199, 400), new Point(5,0));
+		int oldPosY = testModel.getBallPos().y;
+		Set<Input> testInput = new HashSet<Input>();
+		testModel.compute(testInput, 1);
+		testModel.compute(testInput, 1);
+		testModel.compute(testInput, 1);
+		int newPosY = testModel.getBallPos().y;
+		assertEquals(oldPosY, newPosY);
+		
+	}
 }

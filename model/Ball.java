@@ -22,7 +22,7 @@ public class Ball extends Point {
 		this.setLocation(pos);
 		if (vel.x <= 50 && vel.x >= -50 && vel.y <= 50 && vel.y >= -50){
 			this.velocity = vel;
-		}else throw new InvalidVelocityException("The velocity of the ball was set too low or high! Keep withing -50 and 50.");
+		}else throw new InvalidVelocityException("The velocity of the ball was set too low or high! Keep within -50 and 50.");
 	}
 
 	public void move() {
