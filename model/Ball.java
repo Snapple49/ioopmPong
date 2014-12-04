@@ -3,7 +3,7 @@ import java.awt.Point;
 
 public class Ball extends Point {
 
-	protected class InvalidVelocityException extends IllegalArgumentException{
+	public class InvalidVelocityException extends IllegalArgumentException{
 		public InvalidVelocityException(String errormsg){
 			System.err.println(errormsg);
 		}

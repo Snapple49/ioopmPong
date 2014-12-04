@@ -1,4 +1,4 @@
-package model;
+package modeltests;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,9 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
+import model.BarKey;
+import model.Input;
+import model.MyPongModel;
 import model.Input.Dir;
 
 import org.junit.Test;
@@ -32,14 +35,16 @@ public class RecordedGameTest {
 		}
 		testInput.remove(rightBarKey);
 		
-		testerModel.getBallPos().setBall(new Point(600, 400), new Point(-10, -5)); // Start moving ball in desired track
-		for (int i = 0; i < 300; i++) {
+		testerModel.getBall().setBall(new Point(600, 400), new Point(-10, -5)); // Start moving ball in desired track
+		for (int i = 0; i < 60; i++) {
 			testerModel.compute(testInput, 1);
 		}
-		System.out.println(testerModel.getBallPos().toString());
-		System.out.println(testerModel.getBallPos().velocity.toString());
+		System.out.println("Ball position: " + testerModel.getBallPos().toString());
+		System.out.println("Ball velocity: " + testerModel.getBall().velocity.toString());
+		System.out.println("Left barkey position: " + testerModel.getBarPos(BarKey.LEFT));
 		assertEquals(testerModel.getScore(BarKey.RIGHT), "1");
 		assertEquals(testerModel.getBallPos(), new Point(0, 500));
+		//TODO fix increasing speed consideration in positioning
 			
 	}
 
