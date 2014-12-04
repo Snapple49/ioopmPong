@@ -204,11 +204,11 @@ public class MyPongModel implements PongModel {
 
 		case LEFT:
 			barUpperEnd = this.leftPos - (this.leftBarHeight/2);
-			smallUpperCurve = this.leftPos - (this.leftBarHeight/3);
-			bigUpperCurve = smallUpperCurve - (this.leftBarHeight/3);
+			smallUpperCurve = this.leftPos - (this.leftBarHeight/6);
+			bigUpperCurve = smallUpperCurve - (this.leftBarHeight/6);
 			barLowerEnd = this.leftPos + (this.leftBarHeight/2);
-			smallLowerCurve = this.leftPos + (this.leftBarHeight/3);
-			bigLowerCurve = smallLowerCurve + (this.leftBarHeight/3);
+			smallLowerCurve = this.leftPos + (this.leftBarHeight/6);
+			bigLowerCurve = smallLowerCurve + (this.leftBarHeight/6);
 			if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
 				this.ball.velocity.y -= 8;
 			}
@@ -257,9 +257,9 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
-	 * Score.
+	 * Decides what will happen when a player scores. When the ball hits a side without hitting the barkey, it increases the opposing players score and reduces the opposing player's barkey.
 	 *
-	 * @param rightGetsPoint the right gets point
+	 * @param rightGetsPoint if true, right gets the point. 
 	 */
 	private void score(boolean rightGetsPoint){
 		if (rightGetsPoint) {
@@ -282,9 +282,9 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
-	 * Reset.
+	 * Resets the game by placing the ball in the middle heading either left or right, placing both barkeys in the middle. If someone has won, it also resets both scores and sets the barkeys' length to the initial value.    
 	 *
-	 * @param someoneWon the someone won
+	 * @param someoneWon true if someone has won. 
 	 */
 	private void reset(boolean someoneWon) {
 		int dir = (int) (Math.random()*2 + 1);
