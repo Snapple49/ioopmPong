@@ -4,28 +4,28 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class MyPongModel.
+ * The Class MyPongModel represent the model of Pong. It contains the methods for moving the ball and the barkeys, bouncing the ball on the sides or the barkeys, scoring and resetting the game. 
  */
 public class MyPongModel implements PongModel {
 	
-	/** The left bar height. */
+	/** The left barkey's height. */
 	private int leftBarHeight;
 	
-	/** The right bar height. */
+	/** The right barkey's height. */
 	private int rightBarHeight;
 	
-	/** The left pos. */
+	/** The left barkey's position. */
 	private int leftPos;
 	
-	/** The right pos. */
+	/** The right barkey's position. */
 	private int rightPos;
 	
-	/** The left score. */
+	/** The left player's score. */
 	private int leftScore;
 	
-	/** The right score. */
+	/** The right player's score. */
 	private int rightScore;
 	
 	/** The field size. */
@@ -34,23 +34,23 @@ public class MyPongModel implements PongModel {
 	/** The ball. */
 	private Ball ball;
 	
-	/** The center. */
+	/** The center of the field. */
 	public final Point center; 
 	
 	/** The game message. */
 	private String gameMessage = "Welcome to Pong!";
 	
-	/** The left player. */
+	/** The name of the left player. */
 	private final String leftPlayer;
 	
-	/** The right player. */
+	/** The name of the player. */
 	private final String rightPlayer;
 
 	/**
 	 * Instantiates a new my pong model.
 	 *
-	 * @param leftPlayer the left player
-	 * @param rightPlayer the right player
+	 * @param leftPlayer the name of the left player.
+	 * @param rightPlayer the name of the right player.
 	 */
 	public MyPongModel(String leftPlayer, String rightPlayer) {
 		this.leftBarHeight = 150;
@@ -70,10 +70,10 @@ public class MyPongModel implements PongModel {
 	/**
 	 * Instantiates a new my pong model.
 	 *
-	 * @param leftPlayer the left player
-	 * @param rightPlayer the right player
-	 * @param ballPos the ball pos
-	 * @param velocity the velocity
+	 * @param leftPlayer the name of the left player.
+	 * @param rightPlayer the name of the right player.
+	 * @param ballPos the position of the ball.
+	 * @param velocity the velocity of the ball.
 	 */
 	public MyPongModel(String leftPlayer, String rightPlayer, Point ballPos, Point velocity) {
 		this.leftBarHeight = 150;
@@ -103,13 +103,12 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
+	 * 
 	 * Takes the inputs and applies them to the model, computing one
-	 * simulation step. delta_t is the time that has passed since the
-	 * last compute step -- use this in your time integration to have
-	 * the items move at the same speed, regardless of the framerate.
+	 * simulation step. This includes moving the ball, bouncing the ball on a side or barkey, scoring and moving the barkeys.   
 	 *
-	 * @param input the input
-	 * @param delta_t the delta_t
+	 * @param input the input from the keyboard for the different barkeys. 
+	 * @param delta_t the time that has passed since the last compute step.
 	 */
 	public void compute(Set<Input> input, long delta_t) { //TODO Move both simultaneously
 		this.ball.move();
@@ -325,13 +324,13 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
-	 * Sets the bar height.
+	 * Sets the bar height of either LEFT or RIGHT.
 	 *
-	 * @param k the k
-	 * @param newBarHeight the new bar height
+	 * @param direction the barkey for which the height will be set. 
+	 * @param newBarHeight the new height of the barkey.
 	 */
-	public void setBarHeight(BarKey k, int newBarHeight) {
-		switch(k) {
+	public void setBarHeight(BarKey direction, int newBarHeight) {
+		switch(direction) {
 		case LEFT:
 			this.leftBarHeight = newBarHeight;
 		case RIGHT:
@@ -342,12 +341,13 @@ public class MyPongModel implements PongModel {
 
 
 
+	
 
 	/**
-	 * Will output information about the state of the game to be
+	 * Outputs information about the state of the game to be
 	 * displayed to the players.
 	 *
-	 * @return the message
+	 * @return the message that will be displayed.
 	 */
 	public String getMessage() {
 		return gameMessage;
@@ -360,11 +360,11 @@ public class MyPongModel implements PongModel {
 	 * getters that take a BarKey LEFT or RIGHT
 	 * and return positions of the various items on the board.
 	 *
-	 * @param k the k
-	 * @return the bar pos
+	 * @param direction the direction of the barkey of which the position will be returned.
+	 * @return the position of the barkey.
 	 */
-	public int getBarPos(BarKey k) {
-		switch (k) {
+	public int getBarPos(BarKey direction) {
+		switch (direction) {
 		case LEFT: 
 			return this.leftPos;
 		case RIGHT:
@@ -388,13 +388,13 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
-	 * getter for the scores.
+	 * Gets the score of either the LEFT or the RIGHT barkey. 
 	 *
-	 * @param k the k
-	 * @return the score
+	 * @param direction the direction of the barkey corresponding to the score that will be returned. 
+	 * @return the score of the specified barkey.
 	 */
-	public String getScore(BarKey k) {
-		switch (k) {
+	public String getScore(BarKey direction) {
+		switch (direction) {
 		case LEFT: 
 			return ((Integer)this.leftScore).toString();
 		case RIGHT:
@@ -407,10 +407,9 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
-	 * a valid implementation of the model will keep the field size
-	 * will remain constant forever.
+	 * Gets the field size.
 	 *
-	 * @return the field size
+	 * @return the field size.
 	 */
 	public Dimension getFieldSize() {
 		return this.fieldSize;
