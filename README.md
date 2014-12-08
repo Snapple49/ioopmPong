@@ -4,7 +4,7 @@ Type "make build" into the terminal.
 How to run Pong:
 Type "make run" into the terminal. 
 
-Run with Additional options:
+Run with additional options:
 Type make options into the terminal, then, type "java controller/Pong --help" into the terminal in order to show a list of different options. 
 
 Achievements unlocked!:

@@ -32,10 +32,11 @@ public class MyPongModelTest {
 		testInput.add(testBarLeftUp);
 		
 		testModel.compute(testInput, 2);
+		System.out.println(testModel.getBarPos(BarKey.LEFT));
 		assertTrue(testModel.getBarPos(BarKey.LEFT) == 399);
 		
 		assertTrue(testModel.getBarPos(BarKey.RIGHT) == 401);
-		testModel.compute(testInput2, 2);
+		testModel.compute(testInput2, 1);
 		assertTrue(testModel.getBarPos(BarKey.LEFT) == 400);
 		assertTrue(testModel.getBarPos(BarKey.RIGHT) == 400);
 		

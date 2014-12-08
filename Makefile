@@ -1,6 +1,7 @@
 JAVAFILES=$(shell ls model/*.java) $(shell ls view/*.java) $(shell ls controller/*.java)
 CLASSFILES=$(JAVAFILES:.java=.class)
 
+
 all: $(CLASSFILES)
 
 $(CLASSFILES): %.class: %.java

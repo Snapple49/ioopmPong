@@ -138,11 +138,11 @@ public class MyPongModel implements PongModel {
 				switch(i.dir){
 				case UP:
 					if(getBarPos(BarKey.LEFT) > getBarHeight(BarKey.LEFT)/2)
-						leftPos-=delta_t/1.5;
+						leftPos-=delta_t/2;
 					break;
 				case DOWN:
 					if(getBarPos(BarKey.LEFT) < fieldSize.height-getBarHeight(BarKey.LEFT)/2)
-						leftPos+=delta_t/1.5;
+						leftPos+=delta_t/2;
 					break;
 				}
 				break;
