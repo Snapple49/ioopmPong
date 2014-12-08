@@ -279,7 +279,7 @@ public class MyPongModel implements PongModel {
 			rightBarHeight -= 10;
 			gameMessage = "Score to " + this.leftPlayer + "!";
 		}
-		if (rightScore == 1){
+		if (rightScore == 10){
 			gameMessage = this.rightPlayer + " won! Starting new game.";
 			this.reset(true);
 			this.newGame = true;
