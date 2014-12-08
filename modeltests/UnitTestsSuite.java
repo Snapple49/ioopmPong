@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	BallTest.class
+	BallTest.class,
+	MyPongModelTest.class
 })
 
 public class UnitTestsSuite {

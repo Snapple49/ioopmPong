@@ -78,6 +78,7 @@ public class BallTest {
 			testBall.setBall(startPoint, new Point(100, -100));
 		} catch (Ball.InvalidVelocityException e){
 			excptTest = 1;
+			System.out.println("\nException caught successfully, setter works.");
 			
 		}
 		assertTrue(excptTest == 1);
