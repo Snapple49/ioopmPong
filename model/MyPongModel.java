@@ -6,7 +6,7 @@ import java.util.Set;
 
 
 /**
- * The Class MyPongModel represent the model of Pong. It contains the methods for the barkeys, bouncing the ball on the sides or the barkeys, scoring and resetting the game. 
+ * The Class MyPongModel represents the model of the game, handling communication between controller and view. It contains methods for moving and modifying the barkeys, bouncing the ball on the sides or the barkeys, scoring and resetting the game. 
  */
 public class MyPongModel implements PongModel {
 	
@@ -37,7 +37,7 @@ public class MyPongModel implements PongModel {
 	/** The center of the field. */
 	public final Point center; 
 	
-	/** The game message. */
+	/** The message showing the status of the game. */
 	private String gameMessage = "Welcome to Pong!";
 	
 	/** The name of the left player. */
@@ -46,10 +46,11 @@ public class MyPongModel implements PongModel {
 	/** The name of the right player. */
 	private final String rightPlayer;
 	
+	/** The flag for checking for a new game */
 	private boolean newGame = false;
 
 	/**
-	 * Instantiates a new my pong model.
+	 * Instantiates a new pong game.
 	 *
 	 * @param leftPlayer the name of the left player.
 	 * @param rightPlayer the name of the right player.
@@ -70,7 +71,7 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
-	 * Instantiates a new my pong model.
+	 * Instantiates a new pong game with specified ball starting position and velocity.
 	 *
 	 * @param leftPlayer the name of the left player.
 	 * @param rightPlayer the name of the right player.
@@ -160,7 +161,7 @@ public class MyPongModel implements PongModel {
 
 
 	/**
-	 * Checks whether the ball collides with either of the four sides of the game view. If the ball hits the upper or lower side, it will bounce of with the inverted velocity. If the ball hits the right or left side, the function hitSide is called.
+	 * Checks whether the ball collides with either of the four sides of the game view. If the ball hits the upper or lower side, it will bounce of with the inverted velocity. If the ball hits the right or left side, the method hitSide is called.
 	 *
 	 * @param left the left barkey.
 	 * @param right the right barkey.
@@ -182,7 +183,7 @@ public class MyPongModel implements PongModel {
 	 *
 	 * @param bar the barkey of the side that the ball hits.
 	 * @param barHeight the height of the barkey.
-	 * @param rightGetsPoint true if right should be awarded the point if the ball does not hit the barkey.
+	 * @param rightGetsPoint true if right player should be awarded the point if the ball does not hit the barkey.
 	 */
 	private void hitSide(BarKey bar, int barHeight, boolean rightGetsPoint) {
 		if(this.ball.y > this.getBarPos(bar)-(barHeight/2) && this.ball.y < this.getBarPos(bar)+(barHeight/2)){	//Ball within barkey			
@@ -265,9 +266,9 @@ public class MyPongModel implements PongModel {
 	}
 
 	/**
-	 * Decides what will happen when a player scores. When the ball hits a side without hitting the barkey, it increases the opposing players score and reduces the opposing player's barkey.
+	 * Decides what will happen when a player scores. When the ball hits a side without hitting the barkey, it increases the opposing players score and shortens the opposing player's barkey.
 	 *
-	 * @param rightGetsPoint if true, right gets the point. 
+	 * @param rightGetsPoint if true, right player gets the point. 
 	 */
 	private void score(boolean rightGetsPoint){
 		if (rightGetsPoint) {
@@ -357,7 +358,7 @@ public class MyPongModel implements PongModel {
 	
 
 	/**
-	 * Outputs information about the state of the game to be
+	 * Gets the string message with information about the state of the game to be
 	 * displayed to the players.
 	 *
 	 * @return the message that will be displayed.
@@ -388,8 +389,10 @@ public class MyPongModel implements PongModel {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see model.PongModel#getBallPos()
+	/**
+	 * Getter for the ball position on the field
+	 * 
+	 * @return the position of the ball as a Point
 	 */
 
 	public Point getBallPos() {
