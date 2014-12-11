@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.awt.Point;
 
 import model.Ball;
-import model.Ball.InvalidVelocityException;
 
 import org.junit.Test;
 
@@ -73,13 +72,12 @@ public class BallTest {
 		destPos.x += 10;
 		assertEquals(((Point)testBall), destPos);
 		
-		int excptTest = 0;
-		try{
-			testBall.setBall(startPoint, new Point(100, -100));
-		} catch (Ball.InvalidVelocityException e){
-			excptTest = 1;
-			
+		Point velocityBeforeSet = new Point(testBall.velocity.x, testBall.velocity.y);
+		testBall.setBall(startPoint, new Point(100, -100));
+		if(testBall.velocity.equals(velocityBeforeSet)){
+			assertEquals(testBall.velocity, velocityBeforeSet);
+			System.out.println("Setter caught too high values.\n");
 		}
-		assertTrue(excptTest == 1);
+		
 	}
 }

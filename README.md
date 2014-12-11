@@ -1,3 +1,12 @@
+Welcome to Pong! Bounce the ball back at the other players with your barkey and try to make them miss! Default keybinds: 
+
+left up - w
+left down -s 
+right up - i
+right down - k
+
+First player reaching 10 points win the game! Aim by hitting further from the center of the barkey. Have fun!
+
 How to build Pong:
 Type "make build" into the terminal.  
 

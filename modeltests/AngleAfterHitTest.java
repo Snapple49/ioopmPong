@@ -15,30 +15,38 @@ import org.junit.Test;
 
 public class AngleAfterHitTest {
 
-	MyPongModel testerModel = new MyPongModel("p1", "p2", new Point(600, 400), new Point(20, 0));
 	Set<Input> testInput = new HashSet<Input>();
 	Input leftBarKey = new Input(BarKey.LEFT, Dir.UP);
 	Input rightBarKey = new Input(BarKey.RIGHT, Dir.DOWN);
 
 	@Test
-	public void centralCollisionTest1() {
+	public void centralCollisionTestStraight() {
+		MyPongModel testerModel = new MyPongModel("p1", "p2", new Point(600, 400), new Point(20, 0));
 		for (int i = 0; i < 28; i++) {			
 			testerModel.compute(testInput, 1);
 		}
-		Point velocityBeforeCollision = testerModel.getBallPos();
-		
+		Point velocityBeforeCollision = testerModel.getBall().velocity;
+
 		for (int i = 0; i < 4; i++) {			
 			testerModel.compute(testInput, 1);
 		}
-		Point velocityAfterCollision = testerModel.getBallPos();
-		System.out.println("After: " + velocityAfterCollision.toString() + " and before: " + velocityBeforeCollision);
-		assertTrue(!(velocityAfterCollision == velocityBeforeCollision)); // Samma objekt, hämta istället y-värde och jämför.
-		//assertEquals(velocityAfterCollision.y, velocityBeforeCollision.y);
-
+		Point velocityAfterCollision = testerModel.getBall().velocity;
+		assertEquals(velocityAfterCollision.y, velocityBeforeCollision.y);
+		
 
 	}
 	@Test
-	public void centralCollisionTest2() {
-		//TODO angled test, position barkey then move ball at it's center
+	public void centralCollisionTestAngled() {
+		MyPongModel testerModel = new MyPongModel("p1", "p2", new Point(40, 380), new Point(-10, 5));
+		for (int i = 0; i < 3; i++) {			
+			testerModel.compute(testInput, 1);
+		}
+		Point velocityBeforeCollision = testerModel.getBall().velocity;
+
+		for (int i = 0; i < 2; i++) {			
+			testerModel.compute(testInput, 1);
+		}
+		Point velocityAfterCollision = testerModel.getBall().velocity;
+		assertEquals(velocityAfterCollision.y, velocityBeforeCollision.y);
 	}
 }
