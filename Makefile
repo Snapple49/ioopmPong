@@ -1,5 +1,7 @@
 JAVAFILES=$(shell ls model/*.java) $(shell ls view/*.java) $(shell ls controller/*.java)
 CLASSFILES=$(JAVAFILES:.java=.class)
+JAVATESTFILES=$(shell ls modeltests/*.java)
+CLASSTESTFILES=$(JAVATESTFILES:.java=.class)
 
 
 all: $(CLASSFILES)
@@ -10,22 +12,21 @@ $(CLASSFILES): %.class: %.java
 build: all 
 
 run: all
-	./run
+	java controller/Pong
 	
 options: all
 	javac controller/Pong.java
 	
-
-BallTest.class: modeltests/BallTest.java
-	javac -g modeltests/BallTest.java
 	
-MyPongModelTest.class: modeltests/MyPongModelTest.java
-	javac -g modeltests/MyPongModelTest.java
-	
-unitTests: BallTest.class MyPongModelTest.class
-	java -cp .:/usr/share/java/junit.jar org.junit.runner.JUnitCore BallTest
-	java -cp .:/usr/share/java/junit.jar org.junit.runner.JUnitCore MyPongModelTest
+alltests: $(CLASSTESTFILES)
 
+$(CLASSTESTFILES): %.class: %.java
+	javac $<
+	
+runtests: alltests
+	java -cp .:/usr/share/java/junit.jar org.junit.runner.JUnitCore modeltests.OurTestSuite
+	
+	
 
 clean:
 	rm -rf $(CLASSFILES) model/*.class view/*.class controller/*.class
