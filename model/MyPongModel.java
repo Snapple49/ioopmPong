@@ -218,16 +218,16 @@ public class MyPongModel implements PongModel {
 			smallLowerCurve = this.leftPos + (this.leftBarHeight/6);
 			bigLowerCurve = smallLowerCurve + (this.leftBarHeight/6);
 			if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
-				this.ball.velocity.y -= 8;
+				this.ball.setBall(new Point(this.ball.x, this.ball.y), new Point(this.ball.velocity.x, this.ball.velocity.y - 8));;
 			}
 			if (ballPos > bigUpperCurve && ballPos <= smallUpperCurve) {
-				this.ball.velocity.y -= 4;
+				this.ball.setBall(new Point(this.ball.x, this.ball.y), new Point(this.ball.velocity.x, this.ball.velocity.y - 4));;
 			}
 			if (ballPos >= smallLowerCurve && ballPos <= bigLowerCurve) {
-				this.ball.velocity.y += 4;
+				this.ball.setBall(new Point(this.ball.x, this.ball.y), new Point(this.ball.velocity.x, this.ball.velocity.y + 4));;
 			}
 			if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
-				this.ball.velocity.y += 8;
+				this.ball.setBall(new Point(this.ball.x, this.ball.y), new Point(this.ball.velocity.x, this.ball.velocity.y + 8));;
 			}
 			this.ball.bounce(true);
 			this.ball.setBall(getBallPos(), new Point(ball.velocity.x+5, ball.velocity.y));
@@ -242,16 +242,16 @@ public class MyPongModel implements PongModel {
 			smallLowerCurve = this.rightPos + (this.rightBarHeight/6);
 			bigLowerCurve = smallLowerCurve + (this.rightBarHeight/6);
 			if (ballPos >= barUpperEnd && ballPos <= bigUpperCurve) {
-				this.ball.velocity.y -= 8;
+				this.ball.setBall(new Point(this.ball.x, this.ball.y), new Point(this.ball.velocity.x, this.ball.velocity.y - 8));;
 			}
 			if (ballPos > bigUpperCurve && ballPos <= smallUpperCurve) {
-				this.ball.velocity.y -= 4;
+				this.ball.setBall(new Point(this.ball.x, this.ball.y), new Point(this.ball.velocity.x, this.ball.velocity.y - 4));;
 			}
 			if (ballPos >= smallLowerCurve && ballPos <= bigLowerCurve) {
-				this.ball.velocity.y += 4;
+				this.ball.setBall(new Point(this.ball.x, this.ball.y), new Point(this.ball.velocity.x, this.ball.velocity.y + 4));;
 			}
 			if (ballPos >= bigLowerCurve && ballPos <= barLowerEnd) {
-				this.ball.velocity.y += 8;
+				this.ball.setBall(new Point(this.ball.x, this.ball.y), new Point(this.ball.velocity.x, this.ball.velocity.y + 8));;
 			}
 			this.ball.bounce(true);
 			this.ball.setBall(getBallPos(), new Point(ball.velocity.x-5, ball.velocity.y));
